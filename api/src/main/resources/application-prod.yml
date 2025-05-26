@@ -1,0 +1,16 @@
+spring:
+  jpa:
+    show-sql: false
+  flyway:
+    clean-disabled: true
+    clean-on-validation-error: false
+
+logging:
+  level:
+    root: INFO
+    com.agentstore.api: INFO
+
+# Override for production environment
+app:
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS} 

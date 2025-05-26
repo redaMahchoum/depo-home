@@ -1,0 +1,6 @@
+{
+  "path": "/swagger/v1/swagger.json",
+  "error": "Unauthorized",
+  "message": "Full authentication is required to access this resource",
+  "status": 401
+}

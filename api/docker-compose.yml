@@ -1,0 +1,43 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgresDB
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: agentstoreDB
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - agentstore-network
+    restart: unless-stopped
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agentstore-api
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresDB:5432/agentstoreDB
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - JWT_SECRET=5b96d669681c4a7682d399455a7aa8e2d657bb43bc384c528ba3fdf5170324d9
+      - CORS_ALLOWED_ORIGINS=http://localhost:3000
+    ports:
+      - "8080:8080"
+    networks:
+      - agentstore-network
+    restart: unless-stopped
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+    name: agentstore-postgres-data
+
+networks:
+  agentstore-network:
+    driver: bridge 
