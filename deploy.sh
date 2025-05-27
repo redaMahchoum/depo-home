@@ -38,8 +38,8 @@ sleep 10
 if docker-compose ps | grep -q "Up"; then
     echo "✅ Application deployed successfully!"
     echo ""
-    echo "🌐 Frontend: http://localhost"
-    echo "🔧 Backend API: http://localhost:8080"
+    echo "🌐 Frontend: http://localhost:3007"
+    echo "🔧 Backend API: http://localhost:8445"
     echo ""
     echo "📊 To view logs: docker-compose logs -f"
     echo "🛑 To stop: docker-compose down"
