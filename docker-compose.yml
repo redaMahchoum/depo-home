@@ -1,38 +1,40 @@
 services:
   # Backend API Service
-  agentstore-api:
+  depo-apps-api:
     build:
       context: ./api
       dockerfile: Dockerfile
-    container_name: agentstore-api
+    container_name: depo-apps-api
     environment:
-      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE:-prod}
+      - SPRING_PROFILES_ACTIVE=prod
       # Database configuration using your external PostgreSQL
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://${DB_HOST:-your-server-ip}:${DB_PORT:-5432}/${DB_NAME:-agentstoreDB}
-      - SPRING_DATASOURCE_USERNAME=${DB_USERNAME:-depo}
-      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD:-Kawasaki@007}
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/depoapps
+      - SPRING_DATASOURCE_USERNAME=depo
+      - SPRING_DATASOURCE_PASSWORD=Kawasaki@007
       - JWT_SECRET=${JWT_SECRET:-5b96d669681c4a7682d399455a7aa8e2d657bb43bc384c528ba3fdf5170324d9}
-      - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS:-http://localhost:3007,http://localhost:3007}
+      - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS:-http://localhost:3007,http://localhost:80}
+      - DEV_OVERRIDE_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiaWF0IjoxNzE3NDAwMDAwLCJleHAiOjk5OTk5OTk5OTl9.j4lVBSEE8dU0-_DTQF2xnIZxqRsjXsGna0TDM-B8lKQ
     ports:
       - "8445:8445"
     networks:
       - agentstore-network
-    restart: unless-stopped
+    #restart: unless-stopped
 
   # Frontend Service
-  agentstore-frontend:
+  depo-apps-ui:
     build:
       context: ./agent-store-dashboard-ui
       dockerfile: Dockerfile
-    container_name: agentstore-frontend
+    container_name: depo-apps-ui
     ports:
       - "3007:80"
     networks:
       - agentstore-network
-    restart: unless-stopped
+    #restart: unless-stopped
     depends_on:
-      - agentstore-api
+      - depo-apps-api
 
 networks:
   agentstore-network:
-    driver: bridge 
+    external: true
+

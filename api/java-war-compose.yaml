@@ -1,0 +1,7 @@
+services:
+  agent-store-backend:
+    container_name: agent-store-backend
+    restart: on-failure
+    build: .
+    ports:
+      - "8007:8007"

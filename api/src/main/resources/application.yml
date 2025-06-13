@@ -4,9 +4,9 @@ spring:
   profiles:
     active: @spring.profiles.active@
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5432/agentstoreDB
-    username: postgres
-    password: postgres
+    #url: jdbc:postgresql://postgresql:5432/postgres
+    #username: depo
+    #password: Kawasaki@007
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

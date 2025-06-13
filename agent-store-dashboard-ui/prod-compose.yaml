@@ -1,0 +1,7 @@
+services:
+  agent-store-frontend:
+    container_name: agent-store-frontend
+    restart: on-failure
+    build: .
+    ports:
+      - "5007:5007"
